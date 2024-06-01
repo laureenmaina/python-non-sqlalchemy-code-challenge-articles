@@ -14,16 +14,12 @@ class Article:
     @title.setter
     def title(self, new_title):
         if hasattr(self, "title"):
-            AttributeError("Title cannot be changed")
+            AttributeError("'Article' object has no attribute '_title'")
         else:
             if isinstance(new_title, str):
                 if 5 <= len(new_title) <= 50:
                     self._title = new_title
-                else:
-                    ValueError("Title must be between 5 and 50 characters")
-            else:
-                TypeError("Title must be a string")
-            
+                         
     @property
     def author(self):
         return self._author
@@ -58,7 +54,7 @@ class Author:
     @name.setter
     def name(self, new_name):
         if hasattr(self, "name"):
-            AttributeError("Name cannot be changed")
+            AttributeError("'Author' object has no attribute '_name'")
         else:
             if isinstance(new_name, str):
                 if len(new_name):
@@ -69,7 +65,7 @@ class Author:
                 TypeError("Name must be a string")
 
     def articles(self):
-        return [article for article in Article.all if self == article.author]
+        return [article for article in Article.all if article.author == self]
     
     def magazines(self):
         return list({article.magazine for article in self.articles()})
@@ -119,7 +115,7 @@ class Magazine:
             TypeError("Category must be a string")   
 
     def articles(self):
-        return [article for article in Article.all if self == article.magazine]
+        return [article for article in Article.all if article.magazine ==self]
 
     def contributors(self):
         return list({article.author for article in self.articles()})
@@ -148,4 +144,7 @@ class Magazine:
             return list_of_authors
         else:
             return None
+        
+    # @classmethod
+    # def top_publisher(magazine):
         
