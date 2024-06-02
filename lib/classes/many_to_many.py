@@ -145,6 +145,19 @@ class Magazine:
         else:
             return None
         
-    # @classmethod
-    # def top_publisher(magazine):
+    @classmethod
+    def top_publisher(cls):
+        if not Article.all:
+            return None
+
+        top_magazine = None
+        max_articles = 0
+
+        for magazine in cls.all_magazines:
+            article_count = len(magazine.articles())
+            if article_count > max_articles:
+                max_articles = article_count
+                top_magazine = magazine
+
+        return top_magazine
         
